@@ -1,6 +1,4 @@
 node_modules
-dist/
-!packages/*/dist/
 bin/
 obj/
 target/

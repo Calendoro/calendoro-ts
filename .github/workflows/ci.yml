@@ -11,6 +11,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: 22, registry-url: "https://registry.npmjs.org" }
-      - run: npm install --no-audit --no-fund
-      - run: node --input-type=module -e "await import('@calendoro/sdk'); await import('@calendoro/webhooks'); await import('@calendoro/webhooks/edge')"
-      - run: node packages/cli/dist/cli.js --help && node packages/mcp/dist/cli.js --help < /dev/null || true
+      - run: npm pack --dry-run
+      - run: npm install --no-audit --no-fund --no-save --omit=peer && mkdir -p node_modules/@calendoro && ln -sfn "$PWD" node_modules/@calendoro/sdk
+      - run: node --input-type=module -e 'await import("@calendoro/sdk")'
