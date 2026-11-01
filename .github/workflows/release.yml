@@ -1,0 +1,22 @@
+name: Release
+on:
+  push: { tags: ["v*"] }
+permissions: { contents: write, id-token: write, attestations: write }
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: release
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, registry-url: "https://registry.npmjs.org" }
+      - run: npm install --no-audit --no-fund
+      - run: for p in packages/*; do test "v$(node -p "require('./$p/package.json').version")" = "$GITHUB_REF_NAME" || exit 1; done
+      - run: for p in sdk webhooks atoms mcp cli; do (cd packages/$p && npm pack); done
+      - uses: actions/attest-build-provenance@v2
+        with: { subject-path: "packages/*/*.tgz" }
+      - run: gh release create "$GITHUB_REF_NAME" packages/*/*.tgz --generate-notes --verify-tag
+        env: { GH_TOKEN: "${{ github.token }}" }
+      - run: for p in sdk webhooks atoms mcp cli; do (cd packages/$p && npm publish --provenance --access public); done
+        env: { NODE_AUTH_TOKEN: "${{ secrets.NPM_TOKEN }}" }

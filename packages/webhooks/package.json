@@ -1,0 +1,37 @@
+{
+  "name": "@calendoro/webhooks",
+  "version": "0.1.0",
+  "description": "Verify Calendoro webhook signatures in Node.js, Workers and other edge runtimes.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Calendoro/calendoro-node.git",
+    "directory": "packages/webhooks"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./edge": {
+      "types": "./dist/edge.d.ts",
+      "default": "./dist/edge.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

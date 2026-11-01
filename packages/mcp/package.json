@@ -1,0 +1,27 @@
+{
+  "name": "@calendoro/mcp",
+  "version": "0.1.0",
+  "description": "Use Calendoro from Claude, Cursor, VS Code, Windsurf and other MCP clients with an API key.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Calendoro/calendoro-node.git",
+    "directory": "packages/mcp"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "calendoro-mcp": "./dist/cli.js"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
